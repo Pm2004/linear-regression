@@ -1,0 +1,20 @@
+clc;
+close all;
+C = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]; % Concentration (mol/L)
+r = [0.015, 0.028, 0.040, 0.055, 0.070, 0.088]; % Reaction rate
+ln_r = log(r);
+ln_C = log(C);
+% polyfit data using linear regression
+p = polyfit(ln_C, ln_r, 1);
+n = p(1); % reaction order with respect to slope
+ln_k = p(2); % intercept
+k = exp(ln_k);
+%% Display the results
+ln_r_fit = polyval(p, ln_C); % generate fitted values
+figure;
+plot(ln_C, ln_r, 'o');
+hold on;
+plot(ln_C, ln_r_fit, 'r');
+xlabel("ln[C]");
+ylabel("ln[r]");
+grid on;
